@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index of [% root %] | RiveScript::HTTPd</title>
+	<link rel="stylesheet" type="text/css" href="/errors/common.css">
+</head>
+<body>
+
+<h1>Index of [% root %]</h1>
+
+<ul>
+	[% IF root != "/" %]
+		<li><a href="../">Parent Directory</a></li>
+	[% END %]
+	[% FOREACH item = folders %]
+		<li><a href="[% item %]">[% item %]/</a></li>
+	[% END %]
+	[% FOREACH item = files %]
+		<li><a href="[% item %]">[% item %]</a></li>
+	[% END %]
+</ul>
+
+<hr>
+
+<em>Simple web server powered by RiveScript::HTTPd</em>
+
+</body>
+</html>
