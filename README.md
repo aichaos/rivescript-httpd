@@ -1,15 +1,39 @@
-RiveScript HTTPd
-================
+RiveScript::HTTPd
+=================
 
 INTRODUCTION
 ------------
 
-rs-httpd is a simple HTTP daemon that powers two different kinds of
-web-based chatterbots. It has limited support for running CGI scripts
-(if you have an available Perl or Python interpreter, it can execute
-these scripts, otherwise it will attempt to execute Perl scripts by
-itself which may not work if the Perl script includes third party
-modules).
+RiveScript::HTTPd is a simple Perl HTTP daemon intended for quickly being able
+to test and develop web-based RiveScript chatbots. Simply running the
+`rs-httpd` application and navigating to the URL it points out should be enough
+to get up and running immediately.
+
+From the home page of the web site the daemon runs, there (will be) links to
+launch a chat session with either a CGI based RiveScript bot (powered by either
+Perl or Python), or a client side JavaScript-powered bot.
+
+*NOTE:* This project is still in early development and not everything mentioned
+in this README document is true yet. ;)
+
+CGI SUPPORT
+-----------
+
+The daemon supports the execution of CGI scripts, with support for Perl and
+Python built in.
+
+If you have a Perl or Python interpreter installed on your system, the daemon
+should be able to make use of them to execute CGI scripts that call for the
+respective programming language. Otherwise, the scripts won't be able to run,
+and will present a friendly error page instead that explains what you can do
+to correct the problem.
+
+If you don't have a Perl interpreter installed (for example, if you're running
+the daemon from a pre-compiled `.exe` binary), the daemon itself will attempt to
+execute the Perl CGI scripts. This should work fine for the scripts that ship
+with the daemon, because they don't include any third-party modules that the
+daemon itself doesn't also include. Running other CGI scripts from the daemon's
+document root may cause problems though.
 
 DEPENDENCIES
 ------------
@@ -17,18 +41,15 @@ DEPENDENCIES
 The following Perl modules are needed for the HTTP daemon to run:
 
 	HTTP::Daemon
+	HTTP::Status
 	RiveScript
-	Tkx
+
+Installing `libwww-perl` should satisfy all the HTTP module dependencies.
 
 COPYRIGHT AND LICENSE
 ---------------------
 
-The Perl RiveScript interpreter is dual licensed as of version 1.22. For open
-source applications the module is using the GNU General Public License. If
-you'd like to use the RiveScript module in a closed source or commercial
-application, contact the author for more information.
-
-	RiveScript HTTPd
+	RiveScript::HTTPd
 	Copyright (C) 2013 Noah Petherbridge
 
 	This program is free software; you can redistribute it and/or modify
