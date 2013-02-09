@@ -356,6 +356,9 @@ sub do_one_loop {
 				if ($is_cgi) {
 					$self->debug("File is a CGI script.");
 
+					# We'll need to chdir to its directory.
+					my $dirname = dirname($file);
+
 					# Read its shebang line.
 					open(my $peek, "<:utf8", $file);
 					my $shebang = <$peek>;
@@ -385,8 +388,12 @@ sub do_one_loop {
 							# No point in continuing then.
 							$self->debug("The interpreter doesn't exist! 500 error...");
 							$status = RC_INTERNAL_SERVER_ERROR;
-							($file,undef) = $self->resolve_path("/errors/500.html");
-							$is_cgi = 0;
+							$content_type = 'text/html';
+							$response_body = $self->render_template("$self->{config}->{document_root}/errors/interp.html", {
+								file        => $file,
+								interpreter => $shebang,
+							});
+							$has_response = 1;
 						}
 					}
 
@@ -548,7 +555,7 @@ sub resolve_path {
 	$uri =~ s{/+}{/}g; # Remove duplicate slashes
 
 	# Look for a file on disk.
-	my $path = "$self->{config}->{document_root}/$uri";
+	my $path = "$self->{config}->{document_root}" . ($uri ? "/$uri" : "");
 	if (-d $path) {
 		# It's a directory. Look for index files.
 		foreach my $index (@{$self->{config}->{directory_index}}) {
@@ -565,7 +572,7 @@ sub resolve_path {
 		return ($path, $uri);
 	} else {
 		# Nothing was found here.
-		return (undef, undef);
+		return (undef, $uri);
 	}
 }
 

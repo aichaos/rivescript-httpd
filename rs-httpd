@@ -12,7 +12,7 @@ use RiveScript::HTTPd;
 my $daemon = RiveScript::HTTPd->new(
 	address => '127.0.0.1',
 	port    => 2006,
-	debug   => 0,
+	debug   => 1,
 
 	document_root => './public_html',
 	cgi_scripts   => [ '.cgi', '.pl', '.py' ],

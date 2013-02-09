@@ -9,6 +9,10 @@ h1 {
 	font-weight: bold;
 	margin-top: 0px;
 }
+h2 {
+	font-size: x-large;
+	font-weight: bold;
+}
 a:link, a:visited {
 	color: #0000FF;
 	text-decoration: underline;

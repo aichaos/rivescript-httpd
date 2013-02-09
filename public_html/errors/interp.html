@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>No Suitable Interpreter Found | RiveScript::HTTPd</title>
+	<link rel="stylesheet" type="text/css" href="/errors/common.css">
+</head>
+<body>
+
+<h1>No Suitable Interpreter Found</h1>
+
+This CGI script couldn't be executed because you don't have the appropriate
+interpreter installed on your computer. The script wanted to use
+<code>[% interpreter %]</code>, but the interpreter wasn't found at that path.
+
+<h2>What can I do?</h2>
+
+[% IF interpreter.match(".*python.*") %]
+	It looks like this is a <strong>Python</strong> script!<p>
+
+	You can download Python from <a href="http://python.org/">Python.org</a> and
+	install it on your computer. If you're on Windows, it will probably install
+	to a path like <code>C:\Python27\python.exe</code>, and Python scripts should
+	start working on this web server after it's installed.<p>
+
+	If you installed Python and you still can't run this CGI script, send an e-mail
+	to <a href="https://github.com/kirsle">Kirsle</a> about it. Chances are it's
+	because a newer version of Python was released and it has a new path on your
+	hard drive that the current version of RiveScript::HTTPd isn't programmed to
+	look out for.
+[% ELSE %]
+	This doesn't appear to be either a Perl or a Python script. This web server
+	is only designed to support Perl and Python, so running CGI scripts from
+	other programming languages is not officially supported.
+
+	If you're sure you have the correct interpreter installed, edit the file
+	<code>[% file %]</code> in a text editor and change the first line to
+	point to the correct path to the interpreter.
+[% END %]
+
+<hr>
+
+<em>Simple web server powered by RiveScript::HTTPd</em>
+
+</body>
+</html>

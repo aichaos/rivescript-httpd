@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/lolpython
 
 use 5.16.0;
 use strict;
