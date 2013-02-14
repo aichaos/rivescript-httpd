@@ -9,7 +9,13 @@ our $VERSION = '0.01';
 use HTTP::Daemon;
 use HTTP::Status;
 use URI::Escape;
+use File::Basename;
 use Template;
+
+# Modules used by CGI scripts.
+use JSON;
+use DBI;
+use Digest::MD5;
 
 =head1 NAME
 
@@ -314,11 +320,13 @@ sub do_one_loop {
 			my $address = $c->peerhost;
 			my $path    = $r->uri->path;
 			my $query   = $r->uri->query;
+			my $cookies = $r->header('Cookie');
 
 			# Eventual return information.
 			my $status        = RC_OK;
 			my $content_type  = "text/plain";
 			my $response_body = "";
+			my @headers       = ();
 			my $has_response  = 0; # This is 1 to indicate a good response for the user
 
 			# Resolve the path to a file on disk.
@@ -410,6 +418,8 @@ sub do_one_loop {
 							DOCUMENT_ROOT     => $self->{config}->{document_root},
 							REQUEST_METHOD    => $method,
 							QUERY_STRING      => $query,
+							HTTP_COOKIE       => $cookies,
+							SERVER_SOFTWARE   => 'RiveScript::HTTPd',
 							GATEWAY_INTERFACE => 'CGI/1.1',
 						);
 
@@ -469,7 +479,7 @@ sub do_one_loop {
 									} elsif ($what =~ /^status$/i) {
 										$status = $is;
 									} else {
-										# TODO: keep other headers
+										push (@headers, $what => $is);
 									}
 								} else {
 									$response_body .= "$line\n";
@@ -518,6 +528,7 @@ sub do_one_loop {
 				# Make an HTTP response for them.
 				my $resp = HTTP::Response->new($status);
 				$resp->header("Content-Type" => $content_type);
+				$resp->header(@headers) if scalar(@headers);
 				$resp->content($response_body);
 				$c->send_response($resp);
 			} else {

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Help | RiveScript::HTTPd</title>
+<link rel="stylesheet" type="text/css" href="/css/rs-httpd.css">
+</head>
+<body>
+
+<div id="header">
+	RiveScript::HTTPd Help
+</div>
+
+<div id="content">
+	<h1>Publish My Bot</h1>
+
+	The RiveScript::HTTPd web server is only intended to be used by a RiveScript
+	bot developer for testing and demonstration purposes. To make your bot
+	available to the general public on the Internet, it's recommended that you
+	upload your bot to your own website's server. The specifics on how to do this
+	will very depending on which front-ends you want to use.<p>
+
+	<strong>If your web hosting company doesn't allow you to run CGI scripts,
+	then go with the <a href="#javascript">JavaScript</a> method.</strong>
+
+	<a name="perl"></a>
+	<h2>Perl</h2>
+
+	<h3>CGI</h3>
+
+	The easiest Perl interface for your bot is the plain old CGI script. This
+	should work without requiring any modification on an Apache web server,
+	and will probably work on other server software as well.<p>
+
+	<strong>Note:</strong> normal CGI scripts need to be executed once for each
+	HTTP request that calls them. For RiveScript, this means your bot's entire
+	brain will need to be loaded from disk for each request. This should be OK
+	for small-to-medium size bots, especially if you won't have a lot of heavy
+	traffic (lots of users chatting with the bot simultaneously), but if you
+	experience load issues you may want to look into the FastCGI version instead.
+
+	<ol>
+		<li>Upload the entire "perl" directory from the "public_html" folder
+		to your web host. You may want to rename the folder to something else,
+		e.g. "chatbot", but the rest of these steps will refer to this folder
+		as being named "perl".</li>
+
+		<li>Upload your bot's brain (from the "public_html/brain") folder to
+		your web host. Place it inside the "perl" folder ("perl/brain").</li>
+
+		<li>Modify the "config.pl" script from the "perl" folder in a text
+		editor to configure the bot. In particular, you'll want to change
+		the options "brain_path" and "json_root" to new values. <strong>NOTE:</strong>
+		If you plan to use <a href="mysql.html">MySQL</a>, you don't need
+		to worry about the "json_root" value.</li>
+
+		<li>Make sure that "rivescript.pl" is marked executable (chmod
+		permissions 755) on your web server.</li>
+
+		<li>Test it! If the bot isn't responding, try directing your browser
+		to rivescript.pl directly on your web server and see if any errors
+		come up. If you get an "Internal Server Error", consult your web
+		server's error log.</li>
+	</ol>
+
+	When you make new changes to your bot, you <strong>only</strong> need to
+	re-upload the "brain" folder.
+
+	<h3>FastCGI</h3>
+
+	This will require Apache's mod_fcgid module.<p>
+
+	TODO: document how to configure this.
+
+	<a name="python"></a>
+	<h2>Python CGI</h2>
+
+	TODO
+
+	<a name="javascript"></a>
+	<h2>JavaScript</h2>
+
+	If your web hosting company doesn't provide CGI execution support, or if you
+	just don't want to put load on your server by running RiveScript, you can
+	use the JavaScript front-end instead. This executes a full RiveScript
+	interpreter in the user's web browser.<p>
+
+	<strong>NOTE:</strong> If you add new RiveScript files to the "brain" folder,
+	you'll need to <a href="/util/refresh.cgi">refresh the file list</a> before
+	uploading it to your server to make sure your new files are accounted for.
+	(<a href="refresh.html">why do I need to do this?</a>)
+
+	<ol>
+		<li>Upload the entire "js" directory from the "public_html" folder
+		to your web host. You may want to rename the folder to something else,
+		e.g. "chatbot", but the rest of these steps will refer to this folder
+		as being named "js".</li>
+
+		<li>Upload your bot's brain (from the "public_html/brain") folder to
+		your web host. Place it inside the "js" folder ("js/brain").</li>
+
+		<li>Modify the "config.js" file from the "js" folder in a text editor
+		to configure the bot. In particular, you'll want to change the
+		"brain_path" option to say simply "brain" so that it points to the
+		new location of your bot's brain.</li>
+
+		<li>Test it! All modern web browsers should be capable of running
+		the JavaScript version of RiveScript.</li>
+	</ol>
+
+	When you make new changes to your bot, you only need to re-upload the
+	"brain" folder. <strong>If you add new .rs files</strong> to the brain,
+	you'll need to refresh the file list and re-upload "brain.js" to the
+	"js" folder.<p>
+
+	<a href="index.html">Back to Help</a>
+
+	<hr>
+
+	<div id="copyright">
+		Powered by <a href="https://github.com/kirsle/rivescript-httpd">RiveScript::HTTPd</a>.
+		This program is free software distributed<br>
+		under the GNU General Public License.
+		&copy; 2013 <a href="http://www.rivescript.com/">RiveScript.com</a>
+	</div>
+</div>
+
+</body>
+</html>
