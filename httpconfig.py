@@ -14,6 +14,7 @@ config = dict(
     perl = [
         '/usr/bin/perl',
         'C:/Perl/bin/perl.exe',
+        'C:/Perl64/bin/perl.exe',
     ],
     python = [
         '/usr/bin/python',
