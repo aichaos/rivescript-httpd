@@ -1,0 +1,26 @@
+body {
+	background-color: #FFFFFF;
+	font-family: "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
+	font-size: medium;
+	color: #000000;
+}
+h1 {
+	font-size: xx-large;
+	font-weight: bold;
+	margin-top: 0px;
+}
+h2 {
+	font-size: x-large;
+	font-weight: bold;
+}
+a:link, a:visited {
+	color: #0000FF;
+	text-decoration: underline;
+}
+a:hover, a:active {
+	color: #FF0000;
+}
+hr {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}

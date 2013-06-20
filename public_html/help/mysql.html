@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Help | RiveScript::HTTPd</title>
+<link rel="stylesheet" type="text/css" href="/css/rs-httpd.css">
+</head>
+<body>
+
+<div id="header">
+	RiveScript::HTTPd Help
+</div>
+
+<div id="content">
+	<h1>Setting Up MySQL</h1>
+
+	This guide assumes that you are at least somewhat familiar with MySQL. If
+	not, consult a tutorial.<p>
+
+	The example Perl and Python CGI scripts support using a MySQL database to
+	store <strong>user session data</strong> (so that the bot can remember
+	details about the people who chat with it, including their name). By
+	default, both CGI scripts save session data to the hard disk in the
+	"public_html/sessions" folder.
+
+	<h2>Quick Start</h2>
+
+	These steps assume you're running on a Red Hat style Linux server.<p>
+
+	<strong>1) Install the MySQL Server</strong><p>
+
+	<pre># yum install mysql-server</pre>
+
+	<strong>2) Start the server</strong><p>
+
+	<pre># service mysqld start
+# chkconfig mysqld on</pre>
+
+	<strong>3) Change the MySQL root password (recommended)</strong><p>
+
+	<pre># mysqladmin -u root password <ins>NEWPASSWORD</ins></pre>
+
+	<strong>4) Create a database to use with RiveScript</strong><p>
+
+	(Not necessary if you plan to use your own existing database).<p>
+
+	<pre># mysql -u root -p
+mysql&gt; CREATE TABLE rivescript;</pre>
+
+	<strong>5) Create a MySQL user to use with your database</strong><p>
+
+	<pre># mysql -u root -p
+mysql&gt; GRANT SELECT, INSERT, UPDATE, CREATE, DROP, INDEX, ALTER ON rivescript
+	TO '<ins>rs_user</ins>'@'localhost' IDENTIFIED BY '<ins>some_password</ins>'</pre>
+
+	<strong>6) Import the rs_session table</strong><p>
+
+	RiveScript::HTTPd comes with an "extras/mysql_schema" folder. In here is
+	"rs_session.sql" which is the schema for the rs_session table.<p>
+
+	<pre># mysql -u root -p rivescript &lt; rs_session.sql</pre>
+
+	<strong>7) Configure the CGI Scripts to use MySQL</strong><p>
+
+	This will vary depending on whether you're using the Perl or Python CGI
+	scripts. Edit the file "config.pl" or "config.py" respectively and change
+	the options related to MySQL.<p>
+
+	For the Perl config file, you might change the following options:
+	<ul>
+		<li>session_method =&gt; 'mysql',</li>
+		<li>mysql_host =&gt; 'localhost',</li>
+		<li>mysql_database =&gt; 'rivescript',</li>
+		<li>mysql_user =&gt; 'rs_user',</li>
+		<li>mysql_password =&gt; 'some_password',</li>
+	</ul>
+
+	<a href="index.html">Back to Help</a>
+
+	<hr>
+
+	<div id="copyright">
+		Powered by <a href="https://github.com/kirsle/rivescript-httpd">RiveScript::HTTPd</a>.
+		This program is free software distributed<br>
+		under the GNU General Public License.
+		&copy; 2013 <a href="http://www.rivescript.com/">RiveScript.com</a>
+	</div>
+</div>
+
+</body>
+</html>

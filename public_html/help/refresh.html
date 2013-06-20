@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Help | RiveScript::HTTPd</title>
+<link rel="stylesheet" type="text/css" href="/css/rs-httpd.css">
+</head>
+<body>
+
+<div id="header">
+	RiveScript::HTTPd Help
+</div>
+
+<div id="content">
+	<h1>Refreshing the File List</h1>
+
+	<strong>Why do I need to refresh the file list?</strong><p>
+
+	(NOTE: This is only for the JavaScript front-end to RiveScript)<p>
+
+	Unlike Perl and Python, which are both capable of opening up a folder and
+	looking at all the files inside, JavaScript can only access files by
+	knowing exactly where to find them. Because of this, you can't tell the
+	JavaScript version to just "look at my 'brain' folder" like you can with
+	Perl and Python; instead, JavaScript needs to be given a list of <em>all
+	the files</em> that exist inside that folder.<p>
+
+	The RiveScript::HTTPd site provides a tool to help you with this
+	automatically. From the home page, just click on the "Refresh the
+	File List" button under the JavaScript section. This tool will generate
+	a file named "brain.js" inside the "public_html/js" folder, which will
+	tell the JavaScript client what files are in the "brain" folder.<p>
+
+	If you add or delete RiveScript files from the "brain" folder, be sure
+	to refresh the file list so that the JavaScript code will know about
+	what's been changed!<p>
+
+	<a href="index.html">Back to Help</a>
+
+	<hr>
+
+	<div id="copyright">
+		Powered by <a href="https://github.com/kirsle/rivescript-httpd">RiveScript::HTTPd</a>.
+		This program is free software distributed<br>
+		under the GNU General Public License.
+		&copy; 2013 <a href="http://www.rivescript.com/">RiveScript.com</a>
+	</div>
+</div>
+
+</body>
+</html>
