@@ -32,7 +32,7 @@ def find_interpreter(name, search):
     return None
 
 interp['perl']   = find_interpreter('perl', C['perl'])
-#interp['python'] = find_interpreter('python', C['python'])
+interp['python'] = find_interpreter('python', C['python'])
 
 ################################################################################
 # HTTP Server Request Handler                                                  #
