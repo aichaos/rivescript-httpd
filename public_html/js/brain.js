@@ -4,10 +4,10 @@
  * command in the RiveScript::HTTPd index page. */
 
 var rs_filelist = [
-	'public_html/brain/rpg.rs'
-	'public_html/brain/myself.rs'
-	'public_html/brain/admin.rs'
-	'public_html/brain/clients.rs'
-	'public_html/brain/begin.rs'
-	'public_html/brain/eliza.rs'
+	'myself.rive',
+	'admin.rive',
+	'rpg.rive',
+	'clients.rive',
+	'eliza.rive',
+	'begin.rive'
 ];

@@ -3,15 +3,19 @@
 from __future__ import print_function
 import os
 import glob
+import re
 
 # Get the file list.
 files = list()
-for item in glob.glob(os.path.join('public_html', 'brain', '*.rs')):
+for item in glob.glob(os.path.join('public_html', 'brain', '*.rive')):
     item = item.replace('\\', '/')
-    files.append(item)
+    files.append(item.split("/")[-1])
 
 # Format them for the JS.
-filelist = map(lambda x: "\t'%s'" % x, files)
+filelist = map(lambda x: "\t'%s'," % x, files)
+
+# Remove the last comma.
+filelist[-1] = re.sub(r',$', '', filelist[-1])
 
 # Generate the JS.
 js = """/* This file was automatically generated. You shouldn't

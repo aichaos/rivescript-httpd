@@ -28,6 +28,7 @@ config = dict(
         '.htm'  : 'text/html',
         '.text' : 'text/plain',
         '.txt'  : 'text/plain',
+        '.rive' : 'text/plain',
         '.rs'   : 'text/plain',
         '.css'  : 'text/css',
         '.js'   : 'text/javascript',
